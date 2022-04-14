@@ -1,6 +1,6 @@
 %% Program init
 
-clc; clear all; close all;
+%clc; clear all; close all;
 
 %% Importing the file 
 tic;
@@ -9,8 +9,8 @@ filename = 'C:\Users\Charles\Documents\MATLAB\Wav Files\Test.wav';
 
 len = length(x)/fs;
 
-fmin = 60; % Define the minimum frequency to display 
-fmax = 523; % Define the maximum frequency to display
+fmin = 150; % Define the minimum frequency to display 
+fmax = 700; % Define the maximum frequency to display
 
 Dec = 10; % Decimation Factor
 % The Decimation Factor impacts the highest visible frequency:
@@ -81,7 +81,7 @@ ifmin = find(abs(fmin-f') == min(abs(fmin-f'))); % Compute the index related to 
 ifmax = find(abs(fmax-f') == min(abs(fmax-f'))); % Compute the index related to the maximum frequency
 
 figure(1);   %Open a new figure window
-colormap(jet(256)) % Define the color scale (follow a standard)
+colormap(jet(256)); % Define the color scale (follow a standard)
 imagesc([t(1),t(end)],[f(ifmin), f(ifmax)],Gv(ifmin:ifmax, 1:occSpace));   %Graphical representation of the STFT:
 %colorbar;   % Displays a color bar in the right side of the figure
 title('Short-Time Fourier Transform Representation of the Signal'); %Define the title for the figure
@@ -113,14 +113,23 @@ fnotes = [0;...
     3135.96 ; 3322.44; 3520.00; 3729.31 ; 3951.07; 4186.01 ; 4434.92 ; 4698.63; 4978.03 ; 5274.04 ; 5587.65; 5919.91 ;...
     6271.93 ; 6644.88; 7040.00; 7458.62; 7902.13];
 %     G        Ab        A        Bb        B        C          C#       D         Eb       E         F         F#
+
 k1 = f(ifmin);
 ind1 = find(abs(k1-fnotes') == min(abs(k1-fnotes')));
 k2 = f(ifmax);
 ind2 = find(abs(k2-fnotes') == min(abs(k2-fnotes')));
 
 for i = ind1:ind2
-    plot(linspace(0,t(end),1000), fnotes(i)*ones(1, 1000), '-w');
+    s = plot(linspace(0,t(end),10), fnotes(i)*ones(1, 10), '-w');
+    dtt = s.DataTipTemplate; % Get the DataTip information of this plot
+    dtt.DataTipRows(1).Label = 'Time'; % Define the first label as Time
+    dtt.DataTipRows(2).Label = 'Freq'; % Define the second label as Frequency
+    dtt.DataTipRows(3).Label = 'Note'; % Create a third DataTip called 'Note'
+    dtt.DataTipRows(3).Value = repmat(notes(i),1,10); % Attribute the correct note to that DataTip
 end
-yticks(fnotes(ind1:ind2));
-yticklabels(notes(ind1:ind2));
+
+hold off;
+
+yticks(fnotes(ind1:ind2)); % Redefine the y-axis ticks as the frequencies of the musical notes
+yticklabels(notes(ind1:ind2)); % Redefine the y-axis tick labels as the name of the musical notes
 toc;
