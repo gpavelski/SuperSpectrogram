@@ -1,5 +1,5 @@
 # Super Spectrogram
-Apply a STFT in a short-length .wav audio file in order to analyse its Time-Frequency response. Useful for identify musical notes being played.
+Apply a STFT in a short-length .wav audio file in order to analyse its Time-Frequency response. Useful for identifying musical notes being played.
 
 Using the powerful Matlab visualization tools, it allows the user to get a detailed analysis of the input waveform.
 
