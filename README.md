@@ -8,7 +8,7 @@ It does not matter the input frequency sampling rate, but it should be constant.
 
 You can both record your voice and view the results in (almost) real-time, or analyse an audio file recorded in advance.
 
-Currently it can process up to 10s at once. I set up this constraint because this program is not very space-efficient. That means, processing 30s of data at 8800 Hz represents 264.500 samples, now considering each sample as double (8 bytes), we have something like 2.112 GB of data to display. If the user does not take care, it can easily consume the memory of the computer and make it stuck for a while.
+Currently it can process up to 10s at once. I set up this constraint because this program is not very space-efficient. That means, processing 30s of data at 8800 Hz represents 264.500 samples, multiplying by the the window size (2048) and considering each sample as double (8 bytes), we have something like 4 GB of data to display. If the user does not take care, it can easily consume the whole RAM memory of the computer and make it stuck for a while.
 
 Requirements for using the compiled version:
 - MATLAB Runtime (it does not require a MATLAB license, and can be installed just running the .exe in the Releases) [around 1 GB]
